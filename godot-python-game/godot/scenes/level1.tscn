@@ -1,14 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://dqgsiei07wr5i"]
+[gd_scene load_steps=11 format=3 uid="uid://dqgsiei07wr5i"]
 
 [ext_resource type="Script" path="res://scripts/level1.gd" id="1_jmrd7"]
 [ext_resource type="Texture2D" uid="uid://dep1s0mdr85kr" path="res://assets/Tiny Swords (Update 010)/Terrain/Ground/Tilemap_Flat.png" id="2_6bbbc"]
 [ext_resource type="PackedScene" uid="uid://cqwlqspeotvvm" path="res://scenes/player.tscn" id="2_afjlv"]
 [ext_resource type="Texture2D" uid="uid://ct535xtrgjvin" path="res://assets/Tiny Swords (Update 010)/Terrain/Ground/Tilemap_Elevation.png" id="2_owcvl"]
 [ext_resource type="PackedScene" uid="uid://y4odoqneg6gu" path="res://scenes/game_engine.tscn" id="6_yf1p7"]
-[ext_resource type="Texture2D" uid="uid://p4khgpr6f80n" path="res://assets/Extras/key.png" id="8_tfkho"]
-[ext_resource type="Texture2D" uid="uid://cfuyyxj0f2k5q" path="res://assets/Tiny Swords (Update 010)/Resources/Gold Mine/GoldMine_Inactive.png" id="9_qxu05"]
-[ext_resource type="Script" path="res://scripts/problem.gd" id="14_5oawt"]
-[ext_resource type="Texture2D" uid="uid://cx33s3khwk5ou" path="res://assets/Extras/Speech_Emotes (16 x 16).png" id="15_kb0mo"]
+[ext_resource type="PackedScene" uid="uid://b5kvsrh61econ" path="res://scenes/hud.tscn" id="7_8bifh"]
+[ext_resource type="PackedScene" uid="uid://dl2moqxdxfm68" path="res://scenes/goal.tscn" id="7_soqnp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rjxub"]
 texture = ExtResource("2_6bbbc")
@@ -3056,12 +3054,8 @@ texture = ExtResource("2_owcvl")
 
 [sub_resource type="TileSet" id="TileSet_pqd4h"]
 physics_layer_0/collision_layer = 2
-physics_layer_0/collision_mask = 0
 sources/1 = SubResource("TileSetAtlasSource_3p2ox")
 sources/0 = SubResource("TileSetAtlasSource_rjxub")
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_k2mip"]
-size = Vector2(144, 88)
 
 [node name="level1" type="Node2D"]
 script = ExtResource("1_jmrd7")
@@ -3069,7 +3063,7 @@ script = ExtResource("1_jmrd7")
 [node name="TileMap" type="TileMap" parent="."]
 texture_filter = 1
 texture_repeat = 1
-position = Vector2(-48, -96)
+position = Vector2(256, 464)
 tile_set = SubResource("TileSet_pqd4h")
 format = 2
 layer_0/name = "ground"
@@ -3079,11 +3073,10 @@ layer_1/z_index = -1
 layer_1/tile_data = PackedInt32Array()
 
 [node name="player" parent="." instance=ExtResource("2_afjlv")]
-position = Vector2(112, 112)
-collision_mask = 2
+position = Vector2(416, 672)
 
 [node name="camera" type="Camera2D" parent="."]
-position = Vector2(576, 320)
+position = Vector2(880, 880)
 limit_left = -5000000
 limit_top = -5000000
 limit_bottom = 5000000
@@ -3095,44 +3088,16 @@ editor_draw_limits = true
 editor_draw_drag_margin = true
 
 [node name="engine" parent="." instance=ExtResource("6_yf1p7")]
-offset_left = 48.0
-offset_top = 312.0
-offset_right = 48.0
-offset_bottom = 312.0
+offset_left = 352.0
+offset_top = 872.0
+offset_right = 352.0
+offset_bottom = 872.0
 metadata/_edit_use_anchors_ = true
 
-[node name="problem" type="Node2D" parent="."]
-position = Vector2(176, 120)
-script = ExtResource("14_5oawt")
-lines = Array[String](["Escreva um código que resolva o problema do labirinto."])
+[node name="HUD" parent="." instance=ExtResource("7_8bifh")]
+offset = Vector2(650, 450)
+transform = Transform2D(1, 0, 0, 1, 650, 450)
+follow_viewport_enabled = true
 
-[node name="text" type="Sprite2D" parent="problem"]
-texture_filter = 1
-texture_repeat = 1
-scale = Vector2(3, 3)
-texture = ExtResource("15_kb0mo")
-region_enabled = true
-region_rect = Rect2(1, 1, 14, 15)
-
-[node name="area" type="Area2D" parent="problem"]
-collision_layer = 2
-
-[node name="collision" type="CollisionShape2D" parent="problem/area"]
-position = Vector2(0, -4)
-shape = SubResource("RectangleShape2D_k2mip")
-
-[node name="Key" type="Sprite2D" parent="."]
-light_mask = 2
-texture_filter = 1
-texture_repeat = 1
-position = Vector2(1461, -118)
-rotation = -0.776672
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("8_tfkho")
-
-[node name="GoldMineInactive" type="Sprite2D" parent="."]
-texture_filter = 1
-texture_repeat = 1
-position = Vector2(387, 463)
-texture = ExtResource("9_qxu05")
-flip_h = true
+[node name="goal" parent="." instance=ExtResource("7_soqnp")]
+position = Vector2(530, 681)

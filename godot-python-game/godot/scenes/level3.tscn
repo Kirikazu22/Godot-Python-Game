@@ -1,13 +1,11 @@
-[gd_scene load_steps=32 format=3 uid="uid://c7acvmao1bjkd"]
+[gd_scene load_steps=29 format=3 uid="uid://c7acvmao1bjkd"]
 
 [ext_resource type="Script" path="res://scripts/level1.gd" id="1_1xr64"]
 [ext_resource type="Texture2D" uid="uid://dep1s0mdr85kr" path="res://assets/Tiny Swords (Update 010)/Terrain/Ground/Tilemap_Flat.png" id="2_cirs0"]
 [ext_resource type="Texture2D" uid="uid://ct535xtrgjvin" path="res://assets/Tiny Swords (Update 010)/Terrain/Ground/Tilemap_Elevation.png" id="3_xxr78"]
 [ext_resource type="PackedScene" uid="uid://cqwlqspeotvvm" path="res://scenes/player.tscn" id="4_xaqc8"]
 [ext_resource type="PackedScene" uid="uid://y4odoqneg6gu" path="res://scenes/game_engine.tscn" id="6_l73vd"]
-[ext_resource type="Script" path="res://scripts/problem.gd" id="7_qhvdl"]
 [ext_resource type="Texture2D" uid="uid://lv4dyyqfxxwg" path="res://assets/Tiny Swords (Update 010)/Factions/Knights/Buildings/Tower/Tower_Blue.png" id="8_1w8oi"]
-[ext_resource type="Texture2D" uid="uid://cx33s3khwk5ou" path="res://assets/Extras/Speech_Emotes (16 x 16).png" id="8_ewdir"]
 [ext_resource type="Texture2D" uid="uid://diabn8ygy61ca" path="res://assets/Tiny Swords (Update 010)/Factions/Knights/Buildings/House/House_Blue.png" id="9_no4ae"]
 [ext_resource type="Texture2D" uid="uid://dmxme0hm6g63k" path="res://assets/Tiny Swords (Update 010)/Terrain/Bridge/Bridge_All.png" id="9_roulk"]
 [ext_resource type="Texture2D" uid="uid://bte6jh3vj01up" path="res://assets/Tiny Swords (Update 010)/Factions/Knights/Troops/Warrior/Purple/Warrior_Purple.png" id="11_wirf7"]
@@ -3031,9 +3029,6 @@ sources/1 = SubResource("TileSetAtlasSource_3p2ox")
 sources/0 = SubResource("TileSetAtlasSource_y2krf")
 sources/2 = SubResource("TileSetAtlasSource_o35yb")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_k2mip"]
-size = Vector2(144, 88)
-
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_3l0if"]
 load_path = "res://.godot/imported/GoldMine_Inactive.png-aa27aca934f2c1363f270e19ab0c3a28.ctex"
 
@@ -3080,26 +3075,6 @@ region_rect = Rect2(12, -1, 167, 64)
 
 [node name="player" parent="." instance=ExtResource("4_xaqc8")]
 position = Vector2(528, 280)
-
-[node name="problem" type="Node2D" parent="."]
-position = Vector2(472, 304)
-script = ExtResource("7_qhvdl")
-lines = Array[String](["Escreva um código que permita ajudar os npcs."])
-
-[node name="text" type="Sprite2D" parent="problem"]
-texture_filter = 1
-texture_repeat = 1
-scale = Vector2(3, 3)
-texture = ExtResource("8_ewdir")
-region_enabled = true
-region_rect = Rect2(1, 1, 14, 15)
-
-[node name="area" type="Area2D" parent="problem"]
-collision_layer = 2
-
-[node name="collision" type="CollisionShape2D" parent="problem/area"]
-position = Vector2(0, -4)
-shape = SubResource("RectangleShape2D_k2mip")
 
 [node name="scenario" type="Node2D" parent="."]
 texture_filter = 1

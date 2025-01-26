@@ -1,17 +1,15 @@
-[gd_scene load_steps=17 format=3 uid="uid://p0nffayi210s"]
+[gd_scene load_steps=14 format=3 uid="uid://p0nffayi210s"]
 
-[ext_resource type="Script" path="res://scripts/level1.gd" id="1_2dgyk"]
+[ext_resource type="Script" path="res://scripts/level2.gd" id="1_0sfxp"]
 [ext_resource type="Texture2D" uid="uid://dep1s0mdr85kr" path="res://assets/Tiny Swords (Update 010)/Terrain/Ground/Tilemap_Flat.png" id="2_q247c"]
 [ext_resource type="Texture2D" uid="uid://ct535xtrgjvin" path="res://assets/Tiny Swords (Update 010)/Terrain/Ground/Tilemap_Elevation.png" id="2_thruk"]
 [ext_resource type="PackedScene" uid="uid://cqwlqspeotvvm" path="res://scenes/player.tscn" id="3_d3aal"]
 [ext_resource type="PackedScene" uid="uid://y4odoqneg6gu" path="res://scenes/game_engine.tscn" id="4_sl4li"]
 [ext_resource type="Texture2D" uid="uid://cmcmxw758om5f" path="res://assets/Tiny Swords (Update 010)/Deco/04.png" id="9_cvdti"]
 [ext_resource type="Texture2D" uid="uid://wu11g0aovc5e" path="res://assets/Tiny Swords (Update 010)/Deco/05.png" id="10_4ho2s"]
-[ext_resource type="Texture2D" uid="uid://cuyihfj1prbv8" path="res://assets/Tiny Swords (Update 010)/Resources/Trees/Tree.png" id="10_j4khn"]
+[ext_resource type="Texture2D" uid="uid://c54su1fldvyl5" path="res://assets/Tiny Swords (Update 010)/Resources/Trees/Tree.png" id="10_j4khn"]
 [ext_resource type="Texture2D" uid="uid://oomk2eg5unxt" path="res://assets/Tiny Swords (Update 010)/Deco/06.png" id="11_86q7v"]
-[ext_resource type="Script" path="res://scripts/problem.gd" id="12_a0nkn"]
 [ext_resource type="Texture2D" uid="uid://bct5voauvk2wr" path="res://assets/Extras/crystal blue.png" id="12_namux"]
-[ext_resource type="Texture2D" uid="uid://cx33s3khwk5ou" path="res://assets/Extras/Speech_Emotes (16 x 16).png" id="13_1jhr6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_y2krf"]
 texture = ExtResource("2_q247c")
@@ -2931,11 +2929,8 @@ physics_layer_0/collision_layer = 1
 sources/1 = SubResource("TileSetAtlasSource_3p2ox")
 sources/0 = SubResource("TileSetAtlasSource_y2krf")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_k2mip"]
-size = Vector2(144, 88)
-
 [node name="level2" type="Node2D"]
-script = ExtResource("1_2dgyk")
+script = ExtResource("1_0sfxp")
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(-144, -104)
@@ -2949,7 +2944,6 @@ layer_1/tile_data = PackedInt32Array()
 
 [node name="player" parent="." instance=ExtResource("3_d3aal")]
 position = Vector2(432, 256)
-collision_mask = 2
 
 [node name="camera" type="Camera2D" parent="."]
 position = Vector2(576, 320)
@@ -2968,28 +2962,6 @@ offset_left = 96.0
 offset_top = 448.0
 offset_right = 96.0
 offset_bottom = 448.0
-
-[node name="problem" type="Node2D" parent="."]
-texture_filter = 1
-texture_repeat = 1
-position = Vector2(464, 256)
-script = ExtResource("12_a0nkn")
-lines = Array[String](["Escreva um código para pegar os cristais espalhados."])
-
-[node name="text" type="Sprite2D" parent="problem"]
-texture_filter = 1
-texture_repeat = 1
-scale = Vector2(3, 3)
-texture = ExtResource("13_1jhr6")
-region_enabled = true
-region_rect = Rect2(1, 1, 14, 15)
-
-[node name="area" type="Area2D" parent="problem"]
-collision_layer = 2
-
-[node name="collision" type="CollisionShape2D" parent="problem/area"]
-position = Vector2(0, -4)
-shape = SubResource("RectangleShape2D_k2mip")
 
 [node name="scenario" type="Node2D" parent="."]
 
