@@ -6,4 +6,4 @@ Para jogar:<br/>
 4- No caminho da pasta substitua "python" por "codigo teste", pressione enter e depois clique na opção "open" para abrir o código em python.<br/>
 <br/>
 Próximos Passos:<br/>
-Jogar pelo navegador ao invés da Godot Engine.
+-Jogar pelo navegador ao invés da Godot Engine.
