@@ -7,5 +7,6 @@ Para jogar:<br/>
 <br/>
 
 Jogar pelo navegador:<br/>
+1-Instalar o flask com o comando: pip install flask flask-cors.<br/>
 1-No terminal vá até a pasta python e digite o comando "python server.py".<br/>
 2-No navegador acesse o endereço http://localhost:8000/
