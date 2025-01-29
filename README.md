@@ -6,6 +6,6 @@ Para jogar:<br/>
 4-Por fim, No caminho da pasta substitua "python" por "codigo teste", pressione enter e depois clique na opção "open" para abrir o código em python.<br/>
 <br/>
 
-Jogar pelo navegador:
+Jogar pelo navegador:<br/>
 1-No terminal vá até a pasta python e digite o comando "python server.py".<br/>
 2-No navegador acesse o endereço http://localhost:8000/
