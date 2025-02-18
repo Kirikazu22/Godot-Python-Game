@@ -12,4 +12,4 @@ Jogar pelo navegador:<br/>
 2-No navegador acesse o endereço http://localhost:8000/
 
 Atualizações:<br/>
-1-Caixa de texto que permite o envio do código digitado ou copiado
+1-Caixa de texto que permite o envio do código digitado
