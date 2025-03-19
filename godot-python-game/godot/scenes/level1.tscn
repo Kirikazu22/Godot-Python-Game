@@ -1,8 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://dqgsiei07wr5i"]
+[gd_scene load_steps=11 format=3 uid="uid://dqgsiei07wr5i"]
 
 [ext_resource type="Script" path="res://scripts/level1.gd" id="1_jmrd7"]
 [ext_resource type="Texture2D" uid="uid://dep1s0mdr85kr" path="res://assets/Tiny Swords (Update 010)/Terrain/Ground/Tilemap_Flat.png" id="2_6bbbc"]
-[ext_resource type="PackedScene" uid="uid://cqwlqspeotvvm" path="res://scenes/player.tscn" id="2_afjlv"]
 [ext_resource type="Texture2D" uid="uid://ct535xtrgjvin" path="res://assets/Tiny Swords (Update 010)/Terrain/Ground/Tilemap_Elevation.png" id="2_owcvl"]
 [ext_resource type="PackedScene" uid="uid://y4odoqneg6gu" path="res://scenes/game_engine.tscn" id="6_yf1p7"]
 [ext_resource type="PackedScene" uid="uid://b5kvsrh61econ" path="res://scenes/hud.tscn" id="7_8bifh"]
@@ -3073,9 +3072,6 @@ layer_1/name = "water"
 layer_1/z_index = -1
 layer_1/tile_data = PackedInt32Array()
 
-[node name="player" parent="." instance=ExtResource("2_afjlv")]
-position = Vector2(416, 672)
-
 [node name="camera" type="Camera2D" parent="."]
 position = Vector2(880, 880)
 limit_left = -5000000
@@ -3089,6 +3085,7 @@ editor_draw_limits = true
 editor_draw_drag_margin = true
 
 [node name="game_engine" parent="." instance=ExtResource("6_yf1p7")]
+visible = false
 offset_left = 352.0
 offset_top = 872.0
 offset_right = 352.0
@@ -3100,15 +3097,15 @@ transform = Transform2D(1, 0, 0, 1, 650, 450)
 follow_viewport_enabled = true
 
 [node name="goal" parent="." instance=ExtResource("7_soqnp")]
-position = Vector2(530, 681)
+position = Vector2(1136, 672)
 
 [node name="Code_Input" type="TextEdit" parent="."]
 texture_filter = 1
 texture_repeat = 1
-offset_left = 416.0
-offset_top = 608.0
-offset_right = 848.0
-offset_bottom = 944.0
+offset_left = 488.0
+offset_top = 552.0
+offset_right = 944.0
+offset_bottom = 928.0
 theme_override_fonts/font = ExtResource("8_r7dy0")
 context_menu_enabled = false
 
@@ -3135,6 +3132,19 @@ theme_override_fonts/font = ExtResource("8_r7dy0")
 text = "X"
 flat = true
 
-[connection signal="pressed" from="game_engine" to="." method="_on_game_engine_pressed"]
+[node name="error_label" type="Label" parent="Code_Input"]
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 0
+offset_left = 176.0
+offset_top = 312.0
+offset_right = 440.0
+offset_bottom = 368.0
+theme_override_fonts/font = ExtResource("8_r7dy0")
+autowrap_mode = 3
+
+[node name="spawnpoint" type="Marker2D" parent="."]
+position = Vector2(440, 688)
+
 [connection signal="pressed" from="Code_Input/submit_btn" to="." method="_on_submit_btn_pressed"]
 [connection signal="pressed" from="Code_Input/close_btn" to="." method="_on_close_btn_pressed"]

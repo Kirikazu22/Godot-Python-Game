@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/game_engine.gd" id="1_t7dyl"]
 [ext_resource type="Texture2D" uid="uid://clxs5qvlbejlr" path="res://assets/Tiny Swords (Update 010)/UI/Buttons/Button_Blue.png" id="2_7kqux"]
 
-[node name="Main" type="Button"]
+[node name="game_engine" type="Button"]
 texture_filter = 1
 texture_repeat = 1
 anchors_preset = 15
@@ -14,3 +14,5 @@ grow_vertical = 2
 icon = ExtResource("2_7kqux")
 flat = true
 script = ExtResource("1_t7dyl")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
