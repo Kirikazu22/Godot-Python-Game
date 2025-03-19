@@ -27,35 +27,69 @@ def serve_files(path):
     return send_from_directory(app.static_folder, path)
 
 # Processamento dos comandos enviados pelo jogo
+# def process_python_code(code):
+#     valid_commands = {"avancar()": "FRENTE", "virarAEsquerda()": "ESQUERDA"}
+#     responses = []
+#     try:
+#         # Validar código aqui (no caso, estamos simulando como se fosse um código válido ou inválido)
+#         for line in code.split("\n"):
+#             line = line.strip()
+#             if line in valid_commands:
+#                 responses.append(valid_commands[line])  # Retorna apenas o comando esperado
+#             else:
+#                 return {"error": f"Comando inválido: {line}"}, 400  # Erro se o comando não for válido
+#     except SyntaxError as e:
+#         # Se ocorrer erro de sintaxe no código
+#         return {"error": f"Erro de sintaxe no código: {str(e)}"}, 400
+#     except Exception as e:
+#         # Qualquer outro erro
+#         return {"error": f"Erro desconhecido: {str(e)}"}, 500
+#     return {"response": responses}, 200  # Retorna os comandos válidos
+
+import ast
+
 def process_python_code(code):
-    valid_commands = {"avancar()", "virarAEsquerda()"}
+    valid_commands = {"avancar()": "FRENTE", "virarAEsquerda()": "ESQUERDA"}
     responses = []
-    for line in code.split("\n"):
+    
+    # Verifica erro de sintaxe antes de processar os comandos
+    try:
+        ast.parse(code)  # Apenas analisa a sintaxe, sem executar nada
+    except SyntaxError as e:
+        return {"error": f"Erro de sintaxe na linha {e.lineno}: {e.msg}"}, 400
+    
+    # Processar os comandos linha por linha
+    lines = code.split("\n")
+    for i, line in enumerate(lines, start=1):  # Numeração começa em 1
         line = line.strip()
         if line in valid_commands:
-            responses.append(f"Comando executado: {line}")
-        else:
-            responses.append(f"Comando inválido: {line}")
-    return "\n".join(responses)
+            responses.append(valid_commands[line])
+        elif line:  # Ignora linhas vazias
+            return {"error": f"Erro na linha {i}: Comando inválido '{line}'"}, 400
+
+    return {"response": responses}, 200
+
 
 # Endpoint para executar comandos enviados pelo jogo
 @app.route('/execute_code', methods=['POST'])
 def execute_code():
     try:
+        # Verifica se o JSON foi enviado corretamente
         data = request.get_json()
-        code = data.get('code', '')
-
-        if code:
-            response = process_python_code(code)
-            return jsonify({"response": response}), 200
-        else:
+        if not data or "code" not in data:
             return jsonify({"error": "Nenhum código enviado"}), 400
+
+        code = data["code"].strip()
+        if not code:
+            return jsonify({"error": "Código vazio"}), 400
+
+        # Processa o código e retorna os comandos válidos ou erro
+        response, status_code = process_python_code(code)
+        return jsonify(response), status_code
+
     except Exception as e:
-        return jsonify({"error": f"Erro no servidor: {str(e)}"}), 500
-        
-@app.route('/<path:path>')
-def serve_static_files(path):
-    return send_from_directory(app.static_folder, path)
+        print(f"Erro no servidor: {str(e)}")  # Log do erro no servidor
+        return jsonify({"error": f"Erro interno no servidor: {str(e)}"}), 500
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8000, threaded=True)
