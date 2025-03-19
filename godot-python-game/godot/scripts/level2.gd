@@ -1,8 +1,10 @@
 extends Node2D
 
-@onready var camera := $camera as Camera2D  # Assumindo que o node da câmera tem o nome "camera"
-@onready var player = $player
-
+@onready var camera := $camera as Camera2D
+@onready var spawnpoint := $spawnpoint  # Um marcador na fase 2, tipo um Position2D
 
 func _ready():
-	player.follow_camera(camera)  # Passando a câmera como argumento para a função
+	var player_instance = preload("res://scenes/player.tscn").instantiate()
+	add_child(player_instance)
+	player_instance.position = spawnpoint.position  # Coloca o player no ponto certo da fase 2
+	player_instance.follow_camera(camera)
