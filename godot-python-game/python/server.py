@@ -73,6 +73,7 @@ def process_python_code(code):
 # Endpoint para executar comandos enviados pelo jogo
 @app.route('/execute_code', methods=['POST'])
 def execute_code():
+    print("Recebi requisição do jogo!")
     try:
         # Verifica se o JSON foi enviado corretamente
         data = request.get_json()
