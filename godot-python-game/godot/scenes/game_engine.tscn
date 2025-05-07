@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://y4odoqneg6gu"]
+
+[ext_resource type="Script" path="res://scripts/game_engine.gd" id="1_t7dyl"]
+
+[node name="game_engine" type="Node2D"]
+texture_filter = 1
+texture_repeat = 1
+script = ExtResource("1_t7dyl")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]

@@ -1,0 +1,71 @@
+[gd_scene load_steps=7 format=3 uid="uid://d1fj7b7xcqjva"]
+
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="1_nowr0"]
+[ext_resource type="FontFile" uid="uid://bl64rajmg01ep" path="res://assets/Fonts/Final Draft.otf" id="3_ah3v4"]
+
+[sub_resource type="Theme" id="Theme_ic1ny"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_wsti1"]
+action = &"ui_cancel"
+
+[sub_resource type="Shortcut" id="Shortcut_h407k"]
+events = [SubResource("InputEventAction_wsti1")]
+
+[sub_resource type="Theme" id="Theme_38v2m"]
+
+[node name="pause_menu" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_nowr0")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+texture_filter = 1
+texture_repeat = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.678431)
+
+[node name="menu_holder" type="VBoxContainer" parent="."]
+texture_filter = 1
+texture_repeat = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -21.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="resume_btn" type="Button" parent="menu_holder"]
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+theme = SubResource("Theme_ic1ny")
+theme_override_colors/font_color = Color(1, 0.823529, 0.0941176, 0.780392)
+theme_override_colors/font_pressed_color = Color(0.588235, 0.223529, 0.129412, 1)
+theme_override_colors/font_hover_color = Color(0.588235, 0.223529, 0.129412, 1)
+theme_override_fonts/font = ExtResource("3_ah3v4")
+theme_override_font_sizes/font_size = 48
+shortcut = SubResource("Shortcut_h407k")
+text = "RESUME"
+
+[node name="quit_btn" type="Button" parent="menu_holder"]
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+theme = SubResource("Theme_38v2m")
+theme_override_colors/font_color = Color(1, 0.823529, 0.0941176, 0.780392)
+theme_override_colors/font_pressed_color = Color(0.588235, 0.223529, 0.129412, 1)
+theme_override_colors/font_hover_color = Color(0.588235, 0.223529, 0.129412, 1)
+theme_override_fonts/font = ExtResource("3_ah3v4")
+theme_override_font_sizes/font_size = 48
+text = "QUIT GAME
+"
+
+[connection signal="pressed" from="menu_holder/resume_btn" to="." method="_on_resume_btn_pressed"]
+[connection signal="pressed" from="menu_holder/quit_btn" to="." method="_on_quit_btn_pressed"]

@@ -1,0 +1,151 @@
+[gd_scene load_steps=7 format=3 uid="uid://brwwvkkv86ptd"]
+
+[ext_resource type="Script" path="res://scripts/game_over.gd" id="1_a2idq"]
+[ext_resource type="FontFile" uid="uid://bl64rajmg01ep" path="res://assets/Fonts/Final Draft.otf" id="2_37brf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rcdtc"]
+
+[sub_resource type="Animation" id="Animation_sdtck"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VBoxContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_4c6vp"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VBoxContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ai4a2"]
+_data = {
+"RESET": SubResource("Animation_sdtck"),
+"fade_in": SubResource("Animation_4c6vp")
+}
+
+[node name="GameOver" type="Control"]
+texture_repeat = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_a2idq")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.678431)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -122.5
+offset_bottom = 122.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 0.823529, 0.0941176, 0.780392)
+theme_override_colors/font_shadow_color = Color(0.588235, 0.223529, 0.129412, 1)
+theme_override_fonts/font = ExtResource("2_37brf")
+theme_override_font_sizes/font_size = 64
+text = "PARABENS !
+ VOCE COMPLETOU O NIVEL 1"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+theme_override_styles/separator = SubResource("StyleBoxEmpty_rcdtc")
+
+[node name="Next_Level_Btn" type="Button" parent="VBoxContainer"]
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.823529, 0.0941176, 0.780392)
+theme_override_colors/font_pressed_color = Color(0.588235, 0.223529, 0.129412, 1)
+theme_override_colors/font_hover_color = Color(0.588235, 0.223529, 0.129412, 1)
+theme_override_fonts/font = ExtResource("2_37brf")
+theme_override_font_sizes/font_size = 48
+text = "PRÓXIMA FASE"
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+theme_override_styles/separator = SubResource("StyleBoxEmpty_rcdtc")
+
+[node name="Quit_Game_Btn" type="Button" parent="VBoxContainer"]
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.823529, 0.0941176, 0.780392)
+theme_override_colors/font_pressed_color = Color(0.588235, 0.223529, 0.129412, 1)
+theme_override_colors/font_hover_color = Color(0.588235, 0.223529, 0.129412, 1)
+theme_override_fonts/font = ExtResource("2_37brf")
+theme_override_font_sizes/font_size = 48
+text = "SAIR DO JOGO"
+
+[node name="anim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ai4a2")
+}
+
+[connection signal="pressed" from="VBoxContainer/Next_Level_Btn" to="." method="_on_next_level_btn_pressed"]
+[connection signal="pressed" from="VBoxContainer/Quit_Game_Btn" to="." method="_on_quit_game_btn_pressed"]

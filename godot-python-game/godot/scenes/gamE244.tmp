@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://y4odoqneg6gu"]
+
+[ext_resource type="Script" path="res://scripts/game_engine.gd" id="1_t7dyl"]
+[ext_resource type="Texture2D" uid="uid://clxs5qvlbejlr" path="res://assets/Tiny Swords (Update 010)/UI/Buttons/Button_Blue.png" id="2_7kqux"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_6m2lx"]
+diffuse_texture = ExtResource("2_7kqux")
+texture_filter = 1
+texture_repeat = 1
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_t7dyl")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+icon = SubResource("CanvasTexture_6m2lx")
+flat = true
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

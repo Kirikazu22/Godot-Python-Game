@@ -1,0 +1,30 @@
+[gd_scene load_steps=2 format=3 uid="uid://nnddienxc8oo"]
+
+[ext_resource type="Texture2D" uid="uid://rgkiw288l56q" path="res://assets/Packets/Pixel Art Padlock Pack - Animated/Old Padlock/GOLD/Sprites/Old Padlock - GOLD - 0000.png" id="1_5p8wm"]
+
+[node name="lock_screen" type="CanvasLayer"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+texture_filter = 1
+texture_repeat = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.619608)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="lock" type="Sprite2D" parent="VBoxContainer"]
+texture_filter = 1
+texture_repeat = 1
+scale = Vector2(4, 4)
+texture = ExtResource("1_5p8wm")
