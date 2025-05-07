@@ -16,14 +16,11 @@ O objetivo do jogo é proporcionar uma forma lúdica e interativa de aprender pr
 ### 1. **Validação de código Python**
 Agora o jogo **impede a execução de scripts inválidos ou irrelevantes**, como scripts que contêm apenas letras simples ou sem comandos úteis. Isso garante que apenas códigos que realmente tentam resolver o enigma sejam aceitos.
 
-### 2. **Sistema de movimento redesenhado**
-A lógica de movimentação do jogador foi reformulada. Antes, a função `avancar()` dependia de uma variável `direction`, que era modificada temporariamente em funções auxiliares. Isso foi substituído por um sistema mais direto e confiável:
-
 - `avancar()` agora recebe uma direção explícita como argumento (`Vector2.UP`, `Vector2.LEFT`, etc).
 - As funções `moverParaCima()`, `moverParaEsquerda()` etc., chamam `avancar()` com o vetor apropriado.
 - Isso evita estados inconsistentes e melhora a clareza do código.
 
-### 3. **Exibição de erros**
+### 2. **Exibição de erros**
 Mensagens de erro de código Python (ex: erro de sintaxe ou comando não suportado) são agora exibidas de forma clara para o jogador, com feedback adequado na interface.
 
 ---
