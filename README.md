@@ -1,4 +1,4 @@
-# O Enigma das Pontes — Jogo Educacional com Python e Godot 4
+# Python Game — Jogo Educacional com Python e Godot 4
 
 Este projeto é um jogo educacional desenvolvido com [Godot 4](https://godotengine.org/) que visa ensinar lógica de programação para iniciantes por meio de desafios interativos. Os jogadores avançam pelas fases escrevendo **comandos em Python**, que são interpretados e transformados em ações no jogo — como mover o personagem, interagir com objetos ou resolver enigmas.
 
