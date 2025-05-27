@@ -1,6 +1,63 @@
-[gd_scene load_steps=2 format=3 uid="uid://nnddienxc8oo"]
+[gd_scene load_steps=10 format=3 uid="uid://nnddienxc8oo"]
 
-[ext_resource type="Texture2D" uid="uid://rgkiw288l56q" path="res://assets/Packets/Pixel Art Padlock Pack - Animated/Old Padlock/GOLD/Sprites/Old Padlock - GOLD - 0000.png" id="1_5p8wm"]
+[ext_resource type="Texture2D" uid="uid://cph4e8an43qwh" path="res://assets/Packets/Pixel Art Padlock Pack - Animated/Old Padlock/GOLD/Old Padlock - GOLD - Spritesheet.png" id="1_hjstl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kyosm"]
+atlas = ExtResource("1_hjstl")
+region = Rect2(0, 0, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ta75n"]
+atlas = ExtResource("1_hjstl")
+region = Rect2(24, 0, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3x2cd"]
+atlas = ExtResource("1_hjstl")
+region = Rect2(48, 0, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kr43n"]
+atlas = ExtResource("1_hjstl")
+region = Rect2(72, 0, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5dm3u"]
+atlas = ExtResource("1_hjstl")
+region = Rect2(96, 0, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yph8i"]
+atlas = ExtResource("1_hjstl")
+region = Rect2(120, 0, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_edf25"]
+atlas = ExtResource("1_hjstl")
+region = Rect2(144, 0, 24, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oj857"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kyosm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ta75n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3x2cd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kr43n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5dm3u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yph8i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_edf25")
+}],
+"loop": false,
+"name": &"unlock",
+"speed": 4.0
+}]
 
 [node name="lock_screen" type="CanvasLayer"]
 
@@ -23,8 +80,10 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="lock" type="Sprite2D" parent="VBoxContainer"]
+[node name="lock" type="AnimatedSprite2D" parent="VBoxContainer"]
 texture_filter = 1
 texture_repeat = 1
+position = Vector2(113, -22)
 scale = Vector2(4, 4)
-texture = ExtResource("1_5p8wm")
+sprite_frames = SubResource("SpriteFrames_oj857")
+animation = &"unlock"

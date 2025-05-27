@@ -7,7 +7,7 @@
 [node name="dialog_box" type="MarginContainer"]
 texture_filter = 1
 texture_repeat = 1
-offset_right = 712.0
+offset_right = 1368.0
 offset_bottom = 144.0
 size_flags_vertical = 4
 script = ExtResource("1_fom3g")
@@ -41,6 +41,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_qo76e")
 theme_override_font_sizes/font_size = 25
 vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="letter_timer_display" type="Timer" parent="."]
 one_shot = true

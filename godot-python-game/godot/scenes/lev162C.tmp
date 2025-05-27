@@ -675,21 +675,6 @@ offset_bottom = 648.0
 icon = ExtResource("25_1yivv")
 flat = true
 
-[node name="label" type="Label" parent="CanvasLayer/Hud_Code_Input"]
-visible = false
-texture_filter = 1
-texture_repeat = 1
-layout_mode = 0
-offset_left = -16.0
-offset_top = -48.0
-offset_right = 97.0
-offset_bottom = 5.0
-theme_override_colors/font_color = Color(0, 0, 0, 0.921569)
-theme_override_fonts/font = ExtResource("5_ttoho")
-theme_override_font_sizes/font_size = 20
-text = "Exibir tela 
-de código"
-
 [node name="Hud_Dialog_Box" type="Button" parent="CanvasLayer"]
 visible = false
 texture_filter = 1
@@ -701,28 +686,9 @@ offset_bottom = 648.0
 icon = ExtResource("25_1yivv")
 flat = true
 
-[node name="label" type="Label" parent="CanvasLayer/Hud_Dialog_Box"]
-visible = false
-texture_filter = 1
-texture_repeat = 1
-layout_mode = 0
-offset_left = -16.0
-offset_top = -48.0
-offset_right = 97.0
-offset_bottom = 5.0
-theme_override_colors/font_color = Color(0, 0, 0, 0.921569)
-theme_override_fonts/font = ExtResource("5_ttoho")
-theme_override_font_sizes/font_size = 20
-text = "Instruções 
-da fase"
-
 [node name="pause_menu" parent="." instance=ExtResource("4_vs4hj")]
 visible = false
 
 [connection signal="area_entered" from="goal" to="." method="_on_goal_area_entered"]
-[connection signal="mouse_entered" from="CanvasLayer/Hud_Code_Input" to="." method="_on_hud_code_input_mouse_entered"]
-[connection signal="mouse_exited" from="CanvasLayer/Hud_Code_Input" to="." method="_on_hud_code_input_mouse_exited"]
 [connection signal="pressed" from="CanvasLayer/Hud_Code_Input" to="." method="_on_hud_code_input_pressed"]
-[connection signal="mouse_entered" from="CanvasLayer/Hud_Dialog_Box" to="." method="_on_hud_dialog_box_mouse_entered"]
-[connection signal="mouse_exited" from="CanvasLayer/Hud_Dialog_Box" to="." method="_on_hud_dialog_box_mouse_exited"]
 [connection signal="pressed" from="CanvasLayer/Hud_Dialog_Box" to="." method="_on_hud_dialog_box_pressed"]

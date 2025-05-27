@@ -42,6 +42,6 @@ size_flags_vertical = 0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
 theme_override_fonts/font = ExtResource("2_heaeg")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 28
 text = "0000"
 vertical_alignment = 1

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://p0nffayi210s"]
+[gd_scene load_steps=23 format=3 uid="uid://p0nffayi210s"]
 
 [ext_resource type="Script" path="res://scripts/level2.gd" id="1_0sfxp"]
 [ext_resource type="Texture2D" uid="uid://bg13hmd5y1ul1" path="res://assets/Packets/Pixel Crawler - Free Pack/Environment/Tilesets/Water_tiles.png" id="2_1go78"]
@@ -8,7 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://crgpsxnvnyfsx" path="res://assets/Packets/Pixel Crawler - Free Pack/Environment/Tilesets/Floors_Tiles.png" id="4_qfnd6"]
 [ext_resource type="PackedScene" uid="uid://d1fj7b7xcqjva" path="res://scenes/pause_menu.tscn" id="4_sbqq7"]
 [ext_resource type="PackedScene" uid="uid://y4odoqneg6gu" path="res://scenes/game_engine.tscn" id="4_sl4li"]
+[ext_resource type="Texture2D" uid="uid://cc8ugnrl8kt4c" path="res://assets/Packets/Tiny Swords/Tiny Swords (Update 010)/UI/Pointers/02.png" id="7_kqc8s"]
 [ext_resource type="FontFile" uid="uid://bl64rajmg01ep" path="res://assets/Fonts/Final Draft.otf" id="7_ypwes"]
+[ext_resource type="Texture2D" uid="uid://cfi6k6bhotxjn" path="res://assets/Packets/Tiny Swords/Tiny Swords (Update 010)/UI/Buttons/Button_Hover.png" id="8_ftse4"]
 [ext_resource type="Texture2D" uid="uid://cn4pfwcognabe" path="res://assets/Packets/Tiny Swords/Tiny Swords (Update 010)/Terrain/Ground/Shadows.png" id="10_2csha"]
 [ext_resource type="Texture2D" uid="uid://dpqi38a4xe52s" path="res://assets/Extras/Grassland_entities (16 x 16).png" id="10_7f7ti"]
 [ext_resource type="Texture2D" uid="uid://d4f1ppr1mkwlt" path="res://assets/Packets/Tiny Swords/Tiny Swords (Update 010)/Terrain/Bridge/Bridge_All.png" id="10_hcatx"]
@@ -550,7 +552,7 @@ layer_1/tile_data = PackedInt32Array(-262131, 131072, 11, -196595, 0, 13, -13105
 [node name="camera" type="Camera2D" parent="."]
 texture_filter = 1
 texture_repeat = 1
-position = Vector2(-96, -11)
+position = Vector2(-88, 40)
 anchor_mode = 0
 limit_left = -5000000
 limit_top = -5000000
@@ -578,20 +580,22 @@ texture_repeat = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -432.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("7_ypwes")
 theme_override_font_sizes/font_size = 32
 context_menu_enabled = false
+wrap_mode = 1
 
 [node name="submit_btn" type="Button" parent="CanvasLayer/Code_Input"]
 texture_filter = 1
 texture_repeat = 1
 layout_mode = 0
-offset_left = 104.0
-offset_top = 576.0
-offset_right = 353.0
-offset_bottom = 623.0
+offset_left = 56.0
+offset_top = 592.0
+offset_right = 305.0
+offset_bottom = 639.0
 theme_override_fonts/font = ExtResource("7_ypwes")
 theme_override_font_sizes/font_size = 32
 text = "Enviar Código"
@@ -601,10 +605,10 @@ flat = true
 texture_filter = 1
 texture_repeat = 1
 layout_mode = 0
-offset_left = 32.0
-offset_top = 576.0
-offset_right = 72.0
-offset_bottom = 623.0
+offset_left = 8.0
+offset_top = 592.0
+offset_right = 48.0
+offset_bottom = 639.0
 theme_override_fonts/font = ExtResource("7_ypwes")
 theme_override_font_sizes/font_size = 32
 text = "X"
@@ -614,20 +618,94 @@ flat = true
 texture_filter = 1
 texture_repeat = 1
 layout_mode = 0
-offset_left = 592.0
-offset_top = 472.0
-offset_right = 979.0
-offset_bottom = 528.0
+offset_left = 344.0
+offset_top = 448.0
+offset_right = 704.0
+offset_bottom = 504.0
 theme_override_fonts/font = ExtResource("7_ypwes")
 theme_override_font_sizes/font_size = 24
 autowrap_mode = 3
 
+[node name="Skip_Hud" type="Node2D" parent="CanvasLayer"]
+visible = false
+position = Vector2(1341, 680)
+
+[node name="Skip_Button" type="Sprite2D" parent="CanvasLayer/Skip_Hud"]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(-3, 0)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("7_kqc8s")
+
+[node name="Label" type="Label" parent="CanvasLayer/Skip_Hud"]
+texture_filter = 1
+texture_repeat = 1
+offset_left = -13.0
+offset_top = -18.0
+offset_right = 27.0
+offset_bottom = 21.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_ypwes")
+theme_override_font_sizes/font_size = 30
+text = "P"
+
+[node name="Hud_Code_Input" type="Button" parent="CanvasLayer"]
+visible = false
+texture_filter = 1
+texture_repeat = 1
+offset_left = 960.0
+offset_top = 576.0
+offset_right = 1032.0
+offset_bottom = 648.0
+icon = ExtResource("8_ftse4")
+flat = true
+
+[node name="label" type="Label" parent="CanvasLayer/Hud_Code_Input"]
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 0
+offset_left = -16.0
+offset_top = -48.0
+offset_right = 97.0
+offset_bottom = 5.0
+theme_override_colors/font_color = Color(0, 0, 0, 0.921569)
+theme_override_fonts/font = ExtResource("7_ypwes")
+theme_override_font_sizes/font_size = 20
+text = "Exibir tela 
+de código"
+
+[node name="Hud_Dialog_Box" type="Button" parent="CanvasLayer"]
+visible = false
+texture_filter = 1
+texture_repeat = 1
+offset_left = 1080.0
+offset_top = 576.0
+offset_right = 1152.0
+offset_bottom = 648.0
+icon = ExtResource("8_ftse4")
+flat = true
+
+[node name="label" type="Label" parent="CanvasLayer/Hud_Dialog_Box"]
+visible = false
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 0
+offset_left = -16.0
+offset_top = -48.0
+offset_right = 97.0
+offset_bottom = 5.0
+theme_override_colors/font_color = Color(0, 0, 0, 0.921569)
+theme_override_fonts/font = ExtResource("7_ypwes")
+theme_override_font_sizes/font_size = 20
+text = "Instruções 
+da fase"
+
 [node name="HUD" parent="." instance=ExtResource("3_5nr4n")]
 visible = false
-offset = Vector2(450, 60)
-transform = Transform2D(1, 0, 0, 1, 450, 60)
+offset = Vector2(1050, 60)
+transform = Transform2D(1, 0, 0, 1, 1050, 60)
 follow_viewport_enabled = true
-disponible_commands = "COMANDOS DISPONÍVEIS:jogador.atravessar_ponte()"
 
 [node name="pause_menu" parent="." instance=ExtResource("4_sbqq7")]
 visible = false
@@ -642,7 +720,7 @@ shape = SubResource("CircleShape2D_hqyfi")
 debug_color = Color(0.964706, 0, 0.333333, 0.545098)
 
 [node name="dialog_position" type="Marker2D" parent="."]
-position = Vector2(221, 428)
+position = Vector2(-96, 552)
 
 [node name="scene_details" type="Node2D" parent="."]
 position = Vector2(133, 139)
@@ -843,3 +921,11 @@ visible = false
 offset_right = 1552.0
 offset_bottom = 832.0
 color = Color(0, 0, 0, 1)
+
+[connection signal="mouse_entered" from="CanvasLayer/Hud_Code_Input" to="." method="_on_hud_code_input_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/Hud_Code_Input" to="." method="_on_hud_code_input_mouse_exited"]
+[connection signal="pressed" from="CanvasLayer/Hud_Code_Input" to="." method="_on_hud_code_input_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/Hud_Dialog_Box" to="." method="_on_hud_dialog_box_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/Hud_Dialog_Box" to="." method="_on_hud_dialog_box_mouse_exited"]
+[connection signal="pressed" from="CanvasLayer/Hud_Dialog_Box" to="." method="_on_hud_dialog_box_pressed"]
+[connection signal="area_entered" from="goal" to="." method="_on_goal_area_entered"]
