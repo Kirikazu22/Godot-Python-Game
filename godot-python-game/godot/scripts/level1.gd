@@ -1,10 +1,7 @@
 extends Node2D
 
 const lines : Array[String] = [
-	"Crie um código que ajude o cavaleiro a atravessar a ponte.
-O jogador pode se mover para cima, direita, esquerda 
-e para baixo.
-Se tentar usar um comando por vez ele irá afundar.
+	"Crie um código que ajude o cavaleiro a atravessar a ponte. O jogador pode se mover para cima, direita, esquerda e para baixo. Se tentar usar um comando por vez para mover, ele irá afundar.
 "
 ]
 
@@ -19,6 +16,11 @@ Se tentar usar um comando por vez ele irá afundar.
 @onready var hud = $HUD
 @onready var animation_player = $AnimationPlayer
 @onready var color_rect = $AnimationPlayer/ColorRect
+@onready var skip_hud = $CanvasLayer/Skip_Hud
+@onready var hud_code_input = $CanvasLayer/Hud_Code_Input
+@onready var hud_dialog_box = $CanvasLayer/Hud_Dialog_Box
+@onready var code_input_button_label = $CanvasLayer/Hud_Code_Input/label
+@onready var dialog_box_button_label = $CanvasLayer/Hud_Dialog_Box/label
 
 func _ready():
 	color_rect.visible = true
@@ -31,11 +33,13 @@ func _ready():
 	camera.position = Vector2(-96,-11)
 	camera.zoom = Vector2(1,1)
 	await get_tree().create_timer(1.0).timeout
+	skip_hud.visible = true
 	DialogManager.start_message(dialog_position.global_position, lines)
 	DialogManager.message_fully_displayed.connect(_on_message_fully_displayed)
 
 func _on_message_fully_displayed():
-	await get_tree().create_timer(1.5).timeout
+	skip_hud.visible = false
+	await get_tree().create_timer(0.5).timeout
 	code_input.visible = true
 	hud.visible = true
 
@@ -59,10 +63,12 @@ func _on_message_fully_displayed():
 	
 	# Passando o player_instance para o game_engine
 	game_engine.set_player(player)
-	game_engine.set_current_level(self)
 
 func _on_close_btn_pressed():
 	code_input.visible = false
+	hud.visible = false
+	hud_code_input.visible = true
+	hud_dialog_box.visible = true
 
 func _on_submit_btn_pressed():
 	var python_code = code_input.text.strip_edges()
@@ -89,4 +95,28 @@ func _on_goal_area_entered(area):
 	call_deferred("_go_to_next_level")
 
 func _go_to_next_level():
-	get_tree().change_scene_to_file("res://scenes/level2.tscn")
+	get_tree().change_scene_to_file("res://scenes/game_over.tscn")
+
+func _on_hud_code_input_pressed():
+	code_input.visible = true
+	hud.visible = true
+	hud_code_input.visible = false
+	hud_dialog_box.visible = false
+
+func _on_hud_dialog_box_pressed():
+	hud_code_input.visible = false
+	hud_dialog_box.visible = false
+	DialogManager.start_message(dialog_position.global_position, lines)
+	skip_hud.visible = true
+
+func _on_hud_code_input_mouse_entered():
+	code_input_button_label.visible = true
+
+func _on_hud_code_input_mouse_exited():
+	code_input_button_label.visible = false
+
+func _on_hud_dialog_box_mouse_entered():
+	dialog_box_button_label.visible = true
+
+func _on_hud_dialog_box_mouse_exited():
+	dialog_box_button_label.visible = false

@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 @onready var commands = $Control/MarginContainer/HBoxContainer/commands
-@export var disponible_commands = "COMANDOS DISPONÍVEIS:
+var disponible_commands = "COMANDOS DISPONÍVEIS:
 jogador.mover('direita')
 jogador.mover('esquerda')
 jogador.mover('baixo')

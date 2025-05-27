@@ -1,9 +1,7 @@
 extends Node2D
 
 const lines : Array[String] = [
-	"Implemente uma função buscar_senha() para encontrar a senha correta
-e depois a use para abrir a fechadura.
-Compare com a variável 'senha_correta'.
+	"Implemente uma função buscar_senha() para descobrir a senha correta e depois a use para abrir a fechadura. Compare com a variável 'senha_correta'.
 "
 ]
 
@@ -20,8 +18,17 @@ Compare com a variável 'senha_correta'.
 @onready var animation_player = $AnimationPlayer
 @onready var color_rect = $AnimationPlayer/ColorRect
 @onready var lock_screen = $lock_screen
+@onready var lock_sprite = $lock_screen/VBoxContainer/lock
+@onready var skip_hud = $CanvasLayer/Skip_Hud
+@onready var hud_code_input = $CanvasLayer/Hud_Code_Input
+@onready var hud_dialog_box = $CanvasLayer/Hud_Dialog_Box
+@onready var code_input_button_label = $CanvasLayer/Hud_Code_Input/label
+@onready var dialog_box_button_label = $CanvasLayer/Hud_Dialog_Box/label
 
 func _ready():
+	Globals.current_lvl = 3
+	hud.disponible_commands = "COMANDOS DISPONÍVEIS:
+	jogador.abrir_porta(senha_calculada)"
 	color_rect.visible = true
 	animation_player.play("appear")
 	# "Cutscene" de abertura
@@ -30,13 +37,14 @@ func _ready():
 	color_rect.visible = false
 	camera.zoom = Vector2(1,1)
 	await get_tree().create_timer(1.0).timeout
+	skip_hud.visible = true
 	DialogManager.start_message(dialog_position.global_position, lines)
 	DialogManager.message_fully_displayed.connect(_on_message_fully_displayed)
 
 func _on_message_fully_displayed():
-	await get_tree().create_timer(1.5).timeout
+	skip_hud.visible = false
+	await get_tree().create_timer(0.5).timeout
 	code_input.visible = true
-	senhas.visible = true
 	hud.visible = true
 	lock_screen.visible = true
 
@@ -60,11 +68,12 @@ func _on_message_fully_displayed():
 	
 	# Passando o player_instance para o game_engine
 	game_engine.set_player(player)
-	game_engine.set_current_level(self)
 
 func _on_close_btn_pressed():
 	code_input.visible = false
-	senhas.visible = false
+	hud.visible = false
+	hud_code_input.visible = true
+	hud_dialog_box.visible = true
 	lock_screen.visible = false
 
 func _on_submit_btn_pressed():
@@ -93,3 +102,31 @@ func _on_goal_area_entered(area):
 
 func _go_to_next_level():
 	get_tree().change_scene_to_file("res://scenes/game_over.tscn")
+
+func _on_hud_code_input_pressed():
+	code_input.visible = true
+	hud.visible = true
+	hud_code_input.visible = false
+	hud_dialog_box.visible = false
+
+
+func _on_hud_dialog_box_pressed():
+	hud_code_input.visible = false
+	hud_dialog_box.visible = false
+	DialogManager.start_message(dialog_position.global_position, lines)
+	skip_hud.visible = true
+
+func finish_animation():
+	lock_sprite.play("unlock")
+
+func _on_hud_code_input_mouse_entered():
+	code_input_button_label.visible = true
+
+func _on_hud_code_input_mouse_exited():
+	code_input_button_label.visible = false
+
+func _on_hud_dialog_box_mouse_entered():
+	dialog_box_button_label.visible = true
+
+func _on_hud_dialog_box_mouse_exited():
+	dialog_box_button_label.visible = false

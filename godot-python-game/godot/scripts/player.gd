@@ -10,7 +10,7 @@ var tween: Tween  # Guardamos uma referência ao tween atual
 func avancar():
 	print("Andando para frente...")
 	if direction != Vector2.ZERO:
-		var deslocamento = direction.normalized() * 500
+		var deslocamento = direction.normalized() * 100
 		tween = create_tween()
 		tween.tween_property(self, "position", position + deslocamento, 0.5)
 		tween.connect("finished", Callable(self, "_on_tween_finished"))
@@ -18,16 +18,16 @@ func avancar():
 	else:
 		print("Direção inválida para movimento.")
 
-func moverParaEsquerda():
-	print("Movendo para a esquerda...")
-	direction = direction.rotated(-PI / 2) # Gira 90° para a esquerda
-	avancar()
-	direction = direction.rotated(PI / 2) # Volta para a direção original
-
 func moverParaCima():
-	print("Movendo para cima...")
-	direction = Vector2.UP # Direção para cima no sistema de coordenadas Godot
-	avancar()
+	print("Movendo para a esquerda...")
+	if direction != Vector2.ZERO:
+		var deslocamento = direction.rotated(-PI / 2) * 135
+		tween = create_tween()
+		tween.tween_property(self, "position", position + deslocamento, 0.5)
+		tween.connect("finished", Callable(self, "_on_tween_finished"))
+		_set_state("run")
+	else:
+		print("Direção inválida para movimento.")
 
 func moverParaBaixo():
 	print("Movendo para baixo...")

@@ -1,6 +1,5 @@
 extends Node
 
-var current_level
 var http_request: HTTPRequest
 var player_instance
 var fila_comandos: Array = []
@@ -14,9 +13,6 @@ func _ready():
 
 func set_player(player):
 	player_instance = player
-
-func set_current_level(level):
-	current_level = level
 
 # Nova função para enviar código ao servidor Flask
 func send_python_code(code: String, fase):
@@ -41,7 +37,7 @@ func _processar_fila():
 	var comando = fila_comandos.pop_front()
 	_execute_command(comando)
 
-	# Aguarda 0.3 segundos antes de executar o próximo comando
+	# Aguarda 0.5 segundos antes de executar o próximo comando
 	await get_tree().create_timer(0.5).timeout
 	_processar_fila()
 
@@ -64,14 +60,14 @@ func _http_request_completed(result, response_code, headers, body):
 				_processar_fila()
 				
 				# Exibir mensagem de sucesso
-				if current_level:
-					current_level.exibir_mensagem_erro("Comandos executados com sucesso!")
+				if Globals.current_lvl:
+					Globals.current.lvl.exibir_mensagem_erro("Comandos executados com sucesso!")
 			else:
-				if current_level:
-					current_level.exibir_mensagem_erro("Erro: resposta inválida do servidor")
+				if Globals.current.lvl:
+					Globals.current.lvl.exibir_mensagem_erro("Erro: resposta inválida do servidor")
 		else:
-			if current_level:
-				current_level.exibir_mensagem_erro("Erro ao processar resposta do servidor.")
+			if Globals.current.lvl:
+				Globals.current.lvl.exibir_mensagem_erro("Erro ao processar resposta do servidor.")
 	
 	elif response_code == 400:
 		var json = JSON.new()
@@ -81,23 +77,41 @@ func _http_request_completed(result, response_code, headers, body):
 			var response = json.get_data()
 			if "error" in response:
 				
-				if current_level:
-					current_level.exibir_mensagem_erro(response["error"])  # Exibe o erro exato do servidor
+				if Globals.current.lvl:
+					Globals.current.lvl.exibir_mensagem_erro(response["error"])  # Exibe o erro exato do servidor
 			else:
-				if current_level:
-					current_level.exibir_mensagem_erro("Erro 400: Resposta inválida do servidor.")
+				if Globals.current.lvl:
+					Globals.current.lvl.exibir_mensagem_erro("Erro 400: Resposta inválida do servidor.")
 		else:
-			if current_level:
-				current_level.exibir_mensagem_erro("Erro ao processar mensagem de erro do servidor.")
+			if Globals.current.lvl:
+				Globals.current.lvl.exibir_mensagem_erro("Erro ao processar mensagem de erro do servidor.")
 
 	else:
-		if current_level:
-			current_level.exibir_mensagem_erro("Erro ao comunicar com o servidor. Código: " + str(response_code))
+		if Globals.current.lvl:
+			Globals.current.lvl.exibir_mensagem_erro("Erro ao comunicar com o servidor. Código: " + str(response_code))
 
 # Função para executar o comando e mover o jogador
 func _execute_command(command):
 	if command == "DIREITA":
+		await get_tree().create_timer(0.5).timeout
 		player_instance.avancar()
+		await get_tree().create_timer(0.5).timeout
+		player_instance.avancar()
+		await get_tree().create_timer(0.5).timeout
+		player_instance.avancar()
+		await get_tree().create_timer(0.5).timeout
+		player_instance.avancar()
+		await get_tree().create_timer(0.5).timeout
+		player_instance.avancar()
+		await get_tree().create_timer(0.5).timeout
+		player_instance.avancar()
+		await get_tree().create_timer(0.5).timeout
+		player_instance.avancar()
+		await get_tree().create_timer(0.5).timeout
+		player_instance.avancar()
+		await get_tree().create_timer(0.5).timeout
+		player_instance.avancar()
+		await get_tree().create_timer(0.5).timeout
 		player_instance.avancar()
 	
 	elif command == "ESQUERDA":
@@ -111,13 +125,35 @@ func _execute_command(command):
 	
 	#ADICIONAR COMANDOS DAS PRÓXIMAS FASES
 	elif command == "ATRAVESSAR_PONTE":
-		player_instance.moverParaEsquerda()
+		await get_tree().create_timer(0.5).timeout
+		player_instance.moverParaCima()
+		await get_tree().create_timer(0.5).timeout
 		player_instance.avancar()
+		await get_tree().create_timer(0.5).timeout
 		player_instance.avancar()
+		await get_tree().create_timer(0.5).timeout
+		player_instance.avancar()
+		await get_tree().create_timer(0.5).timeout
+		player_instance.avancar()
+		await get_tree().create_timer(0.5).timeout
+		player_instance.avancar()
+		await get_tree().create_timer(0.5).timeout
+		player_instance.avancar()
+		await get_tree().create_timer(0.5).timeout
+		player_instance.avancar()
+		await get_tree().create_timer(0.5).timeout
+		player_instance.avancar()
+		await get_tree().create_timer(0.5).timeout
+		player_instance.avancar()
+		await get_tree().create_timer(0.5).timeout
 		player_instance.avancar()
 	
 	elif command == "ABRIR_PORTA":
-		player_instance.moverParaEsquerda()
+		Globals.current.lvl.finish_animation()
+		await get_tree().create_timer(0.5).timeout
+		player_instance.moverParaCima()
+		await get_tree().create_timer(0.5).timeout
+		player_instance.moverParaCima()
 	
 	else:
 		print("Comando inválido:", command)
