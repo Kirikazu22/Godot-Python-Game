@@ -83,7 +83,7 @@ grow_vertical = 2
 [node name="lock" type="AnimatedSprite2D" parent="VBoxContainer"]
 texture_filter = 1
 texture_repeat = 1
-position = Vector2(113, -22)
+position = Vector2(96, -20)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_oj857")
 animation = &"unlock"

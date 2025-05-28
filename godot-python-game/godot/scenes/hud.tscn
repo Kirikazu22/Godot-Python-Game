@@ -1,10 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://b5kvsrh61econ"]
+[gd_scene load_steps=2 format=3 uid="uid://b5kvsrh61econ"]
 
-[ext_resource type="Script" path="res://scripts/hud_manager.gd" id="1_05ji6"]
 [ext_resource type="FontFile" uid="uid://bl64rajmg01ep" path="res://assets/Fonts/Final Draft.otf" id="2_heaeg"]
 
 [node name="HUD" type="CanvasLayer"]
-script = ExtResource("1_05ji6")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
