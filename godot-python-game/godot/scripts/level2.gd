@@ -21,10 +21,11 @@ const lines : Array[String] = [
 @onready var hud_dialog_box = $CanvasLayer/Hud_Dialog_Box
 @onready var code_input_button_label = $CanvasLayer/Hud_Code_Input/label
 @onready var dialog_box_button_label = $CanvasLayer/Hud_Dialog_Box/label
+@onready var commands = $HUD/Control/MarginContainer/HBoxContainer/commands
 
 func _ready():
 	Globals.current_lvl = 2
-	hud.disponible_commands = "COMANDOS DISPONÍVEIS:
+	commands.text = "COMANDOS DISPONÍVEIS:
 	jogador.atravessar_ponte()"
 	color_rect.visible = true
 	animation_player.play("appear")
@@ -98,7 +99,7 @@ func _on_goal_area_entered(area):
 	call_deferred("_go_to_next_level")
 
 func _go_to_next_level():
-	get_tree().change_scene_to_file("res://scenes/level3.tscn")
+	get_tree().change_scene_to_file("res://scenes/game_over.tscn")
 
 func _on_hud_code_input_pressed():
 	code_input.visible = true

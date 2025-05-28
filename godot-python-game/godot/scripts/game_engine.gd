@@ -4,6 +4,7 @@ var http_request: HTTPRequest
 var player_instance
 var fila_comandos: Array = []
 var executando_comandos: bool = false
+signal trigger_animation  # sinal para animação da fase 3
 
 func _ready():
 	# Cria um nó HTTPRequest e conecta seu sinal de conclusão.
@@ -97,30 +98,23 @@ func _execute_command(command):
 		player_instance.avancar()
 		await get_tree().create_timer(0.5).timeout
 		player_instance.avancar()
-		await get_tree().create_timer(0.5).timeout
-		player_instance.avancar()
-		await get_tree().create_timer(0.5).timeout
-		player_instance.avancar()
-		await get_tree().create_timer(0.5).timeout
-		player_instance.avancar()
-		await get_tree().create_timer(0.5).timeout
-		player_instance.avancar()
-		await get_tree().create_timer(0.5).timeout
-		player_instance.avancar()
-		await get_tree().create_timer(0.5).timeout
-		player_instance.avancar()
-		await get_tree().create_timer(0.5).timeout
-		player_instance.avancar()
-		await get_tree().create_timer(0.5).timeout
-		player_instance.avancar()
 	
 	elif command == "ESQUERDA":
+		await get_tree().create_timer(0.5).timeout
+		player_instance.moverParaEsquerda()
+		await get_tree().create_timer(0.5).timeout
 		player_instance.moverParaEsquerda()
 	
 	elif command == "CIMA":
+		await get_tree().create_timer(0.5).timeout
+		player_instance.moverParaCima()
+		await get_tree().create_timer(0.5).timeout
 		player_instance.moverParaCima()
 	
 	elif command == "BAIXO":
+		await get_tree().create_timer(0.5).timeout
+		player_instance.moverParaBaixo()
+		await get_tree().create_timer(0.5).timeout
 		player_instance.moverParaBaixo()
 	
 	#ADICIONAR COMANDOS DAS PRÓXIMAS FASES
@@ -149,8 +143,8 @@ func _execute_command(command):
 		player_instance.avancar()
 	
 	elif command == "ABRIR_PORTA":
-		Globals.current.lvl.finish_animation()
-		await get_tree().create_timer(0.5).timeout
+		emit_signal("trigger_animation")
+		await get_tree().create_timer(3.5).timeout
 		player_instance.moverParaCima()
 		await get_tree().create_timer(0.5).timeout
 		player_instance.moverParaCima()

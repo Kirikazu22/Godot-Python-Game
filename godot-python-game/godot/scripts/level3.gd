@@ -24,11 +24,13 @@ const lines : Array[String] = [
 @onready var hud_dialog_box = $CanvasLayer/Hud_Dialog_Box
 @onready var code_input_button_label = $CanvasLayer/Hud_Code_Input/label
 @onready var dialog_box_button_label = $CanvasLayer/Hud_Dialog_Box/label
+@onready var commands = $HUD/Control/MarginContainer/HBoxContainer/commands
 
 func _ready():
 	Globals.current_lvl = 3
-	hud.disponible_commands = "COMANDOS DISPONÍVEIS:
-	jogador.abrir_porta(senha_calculada)"
+	commands.text = "COMANDOS DISPONÍVEIS:
+	jogador.abrir_porta
+	(senha_calculada)"
 	color_rect.visible = true
 	animation_player.play("appear")
 	# "Cutscene" de abertura
@@ -47,12 +49,14 @@ func _on_message_fully_displayed():
 	code_input.visible = true
 	hud.visible = true
 	lock_screen.visible = true
+	senhas.visible = true
 
 	# Conecta botões com segurança
 	if submit_btn:
 		if submit_btn.pressed.is_connected(_on_submit_btn_pressed):
 			submit_btn.pressed.disconnect(_on_submit_btn_pressed)
 		submit_btn.pressed.connect(_on_submit_btn_pressed)
+		game_engine.connect("trigger_animation", Callable(self, "animation"))
 	else:
 		print("Erro: Botão de envio não encontrado!")
 
@@ -75,6 +79,7 @@ func _on_close_btn_pressed():
 	hud_code_input.visible = true
 	hud_dialog_box.visible = true
 	lock_screen.visible = false
+	senhas.visible = false
 
 func _on_submit_btn_pressed():
 	var python_code = code_input.text.strip_edges()
@@ -106,9 +111,9 @@ func _go_to_next_level():
 func _on_hud_code_input_pressed():
 	code_input.visible = true
 	hud.visible = true
+	senhas.visible = true
 	hud_code_input.visible = false
 	hud_dialog_box.visible = false
-
 
 func _on_hud_dialog_box_pressed():
 	hud_code_input.visible = false
@@ -116,7 +121,7 @@ func _on_hud_dialog_box_pressed():
 	DialogManager.start_message(dialog_position.global_position, lines)
 	skip_hud.visible = true
 
-func finish_animation():
+func animation():
 	lock_sprite.play("unlock")
 
 func _on_hud_code_input_mouse_entered():

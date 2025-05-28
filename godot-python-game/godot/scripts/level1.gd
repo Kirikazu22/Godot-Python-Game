@@ -21,8 +21,14 @@ const lines : Array[String] = [
 @onready var hud_dialog_box = $CanvasLayer/Hud_Dialog_Box
 @onready var code_input_button_label = $CanvasLayer/Hud_Code_Input/label
 @onready var dialog_box_button_label = $CanvasLayer/Hud_Dialog_Box/label
+@onready var commands = $HUD/Control/MarginContainer/HBoxContainer/commands
 
 func _ready():
+	commands.text = "COMANDOS DISPONÍVEIS:
+jogador.mover('direita')
+jogador.mover('esquerda')
+jogador.mover('baixo')
+jogador.mover('cima')"
 	color_rect.visible = true
 	animation_player.play("appear")
 	# "Cutscene" de abertura
