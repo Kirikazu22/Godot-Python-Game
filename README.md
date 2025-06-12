@@ -22,10 +22,10 @@ O objetivo do jogo é proporcionar uma forma lúdica e interativa de aprender pr
 ## Modificações
 
 
-# 1. Validação de código Python  
+### 1. Validação de código Python  
 O jogo agora impede a execução de scripts inválidos. Isso garante que apenas códigos que realmente tentam resolver o enigma sejam aceitos.
 
-# 2. Exibição de erros  
+### 2. Exibição de erros  
 Mensagens de erro de código Python (como erro de sintaxe ou comando não suportado) são agora exibidas de forma clara para o jogador, com feedback adequado na interface.
 
 
