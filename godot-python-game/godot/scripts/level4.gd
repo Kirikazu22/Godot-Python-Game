@@ -90,7 +90,7 @@ func exibir_mensagem_erro(mensagem: String):
 
 func _send_code_to_game_engine(code: String):
 	if game_engine and game_engine.has_method("send_python_code"):
-		game_engine.send_python_code(code, 3)
+		game_engine.send_python_code(code, 4)
 	else:
 		print("Erro: GameEngine não encontrado ou função inexistente.")
 
