@@ -41,23 +41,44 @@ def all_mover_calls_inside_loops(tree):
                     return False  # Encontrou comando fora de loop
     return True
 
-# Estima o número de iterações de um loop (simples)
-def get_loop_iterations(node):
+def get_loop_iterations(node, fase):
+    def erro(msg):
+        lineno = getattr(node, "lineno", "?")
+        raise ValueError(f"Erro na linha {lineno}: {msg}")
+
     if isinstance(node, ast.For):
-        # Caso seja do tipo: for i in range(...)
-        if isinstance(node.iter, ast.Call) and isinstance(node.iter.func, ast.Name) and node.iter.func.id == "range":
+        if (
+            isinstance(node.iter, ast.Call)
+            and isinstance(node.iter.func, ast.Name)
+            and node.iter.func.id == "range"
+        ):
             args = node.iter.args
             if len(args) == 1 and isinstance(args[0], ast.Constant) and isinstance(args[0].value, int):
-                return args[0].value
+                n = args[0].value
             elif len(args) == 2 and all(isinstance(arg, ast.Constant) for arg in args):
-                return args[1].value - args[0].value
+                n = args[1].value - args[0].value
+            else:
+                n = None
+
+            if n is not None:
+                if fase == 1 and n != 5:
+                    erro("O número de repetições está errado.")
+                elif fase != 1 and n > 50:
+                    erro("O número máximo de repetições permitido é 50.")
+                return n
+
     elif isinstance(node, ast.While):
-        # Caso seja: while i < 5
+        if fase == 1:
+            erro("Loops 'while' não são permitidos na fase 1.")
         if isinstance(node.test, ast.Compare):
             right = node.test.comparators[0]
             if isinstance(right, ast.Constant) and isinstance(right.value, int):
-                return right.value
-    return None  # Não foi possível estimar
+                n = right.value
+                if n > 50:
+                    erro("O número máximo de repetições permitido é 50.")
+                return n
+
+    return None
 
 # Função principal que processa o código Python enviado pelo jogador
 def process_python_code(code, fase):
@@ -67,7 +88,8 @@ def process_python_code(code, fase):
     valid_calls_fase = {
         1: {"jogador.mover('direita')", "jogador.mover('esquerda')", "jogador.mover('baixo')", "jogador.mover('cima')"},
         2: {"jogador.atravessar_ponte()"},
-        3: {"jogador.abrir_porta()"}
+        3: {"jogador.abrir_porta()"},
+        4: {"jogador.falar()"}
     }
 
     # Mapeia os comandos para nomes internos do jogo
@@ -78,6 +100,7 @@ def process_python_code(code, fase):
         "direita": "DIREITA",
         "atravessar_ponte": "ATRAVESSAR_PONTE",
         "abrir_porta": "ABRIR_PORTA",
+        "falar": "FALAR"
     }
 
     # Tenta analisar o código com AST
@@ -117,6 +140,49 @@ def process_python_code(code, fase):
                 "error": "Você deve usar uma estrutura de repetição para atravessar o pântano. "
                          "Repetir manualmente o comando 'jogador.mover(...)' pode fazer o jogador afundar. "
                          "Use 'for' ou 'while' para seguir boas práticas!"
+            }, 400
+
+    # Verificação específica para fase 4
+    if fase == 4:
+        # 1. Verifica se não usa for/while e se tem ao menos uma função
+        tem_funcao = False
+        for node in ast.walk(tree):
+            if isinstance(node, (ast.For, ast.While)):
+                return {"error": "Não use estruturas de repetição (for ou while) na fase 4."}, 400
+            if isinstance(node, ast.FunctionDef):
+                tem_funcao = True
+
+        if not tem_funcao:
+            return {"error": "Você deve definir uma função para resolver essa fase."}, 400
+
+        # 2. Cria mock para jogador que registra as palavras faladas
+        class JogadorMock:
+            def __init__(self):
+                self.faladas = []
+
+            def falar(self, palavra):
+                # Se a palavra for um objeto AST Constant, pega o valor
+                # Mas como executamos, deve ser já a string
+                self.faladas.append(palavra)
+
+        jogador_mock = JogadorMock()
+        exec_env = {"jogador": jogador_mock}
+
+        try:
+            # Compila e executa o código no escopo com o mock
+            compiled_code = compile(code, filename="<jogo>", mode="exec")
+            exec(compiled_code, exec_env)
+        except Exception as e:
+            return {"error": f"Erro ao executar o código: {e}"}, 400
+
+        # 3. Verifica se jogador.falar foi chamado pelo menos uma vez
+        if not jogador_mock.faladas:
+            return {"error": "Você deve chamar jogador.falar() ao menos uma vez."}, 400
+
+        # 4. Verifica se a última palavra falada é "E"
+        if jogador_mock.faladas[-1] != "E":
+            return {
+                "error": f"A última palavra falada foi '{jogador_mock.faladas[-1]}', mas deveria ser 'E'."
             }, 400
 
     # Verificação específica para fase 2 (uso de loop e argumento dinâmico)
@@ -197,13 +263,13 @@ def process_python_code(code, fase):
             else:
                 extract_valid_commands(stmt)
 
-    # Extrai comandos válidos do código (recursivamente)
+        # Extrai comandos válidos do código (recursivamente)
     def extract_valid_commands(node):
         if isinstance(node, ast.FunctionDef):
             for sub in node.body:
                 extract_valid_commands(sub)
         elif isinstance(node, ast.For) or isinstance(node, ast.While):
-            iterations = get_loop_iterations(node)
+            iterations = get_loop_iterations(node, fase)
             if iterations is not None:
                 process_loop_body(node.body, iterations)
             else:
