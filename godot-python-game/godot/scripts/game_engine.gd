@@ -5,6 +5,7 @@ var player_instance
 var fila_comandos: Array = []
 var executando_comandos: bool = false
 signal trigger_animation  # sinal para animação da fase 3
+signal reveal_treasure  # sinal para animação da fase 4
 
 func _ready():
 	# Cria um nó HTTPRequest e conecta seu sinal de conclusão.
@@ -98,6 +99,20 @@ func _execute_command(command):
 		player_instance.avancar()
 		await get_tree().create_timer(0.5).timeout
 		player_instance.avancar()
+		await get_tree().create_timer(0.5).timeout
+		player_instance.avancar()
+		await get_tree().create_timer(0.5).timeout
+		player_instance.avancar()
+		await get_tree().create_timer(0.5).timeout
+		player_instance.avancar()
+		await get_tree().create_timer(0.5).timeout
+		player_instance.avancar()
+		await get_tree().create_timer(0.5).timeout
+		player_instance.avancar()
+		await get_tree().create_timer(0.5).timeout
+		player_instance.avancar()
+		await get_tree().create_timer(0.5).timeout
+		player_instance.avancar()
 	
 	elif command == "ESQUERDA":
 		await get_tree().create_timer(0.5).timeout
@@ -145,6 +160,16 @@ func _execute_command(command):
 	elif command == "ABRIR_PORTA":
 		emit_signal("trigger_animation")
 		await get_tree().create_timer(3.5).timeout
+		player_instance.moverParaCima()
+		await get_tree().create_timer(0.5).timeout
+		player_instance.moverParaCima()
+		
+	elif command == "FALAR":
+		emit_signal("reveal_treasure")
+		player_instance.moverParaCima()
+		await get_tree().create_timer(0.5).timeout
+		player_instance.moverParaCima()
+		await get_tree().create_timer(0.5).timeout
 		player_instance.moverParaCima()
 		await get_tree().create_timer(0.5).timeout
 		player_instance.moverParaCima()
