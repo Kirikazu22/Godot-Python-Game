@@ -140,7 +140,7 @@ theme_override_colors/font_pressed_color = Color(0.588235, 0.223529, 0.129412, 1
 theme_override_colors/font_hover_color = Color(0.588235, 0.223529, 0.129412, 1)
 theme_override_fonts/font = ExtResource("2_37brf")
 theme_override_font_sizes/font_size = 48
-text = "SAIR DO JOGO"
+text = "MENU PRINCIPAL"
 
 [node name="anim" type="AnimationPlayer" parent="."]
 libraries = {

@@ -26,7 +26,8 @@ const lines : Array[String] = [
 @onready var fire_2 = $details/Fire2
 
 func _ready():
-	Globals.current_lvl = 4
+	Globals.current_lvl = self
+	Globals.next_fase = 5
 	commands.text = "COMANDOS DISPONÍVEIS:
 	jogador.falar(palavra)"
 	color_rect.visible = true
@@ -50,7 +51,7 @@ func _on_message_fully_displayed():
 		if submit_btn.pressed.is_connected(_on_submit_btn_pressed):
 			submit_btn.pressed.disconnect(_on_submit_btn_pressed)
 		submit_btn.pressed.connect(_on_submit_btn_pressed)
-		game_engine.connect("reveal_treaure", Callable(self, "animation"))
+		game_engine.connect("reveal_treasure", Callable(self, "animation"))
 	else:
 		print("Erro: Botão de envio não encontrado!")
 
@@ -86,7 +87,6 @@ func exibir_mensagem_erro(mensagem: String):
 	error_label.text= ""
 	# Define a mensagem como placeholder do campo de código
 	error_label.text = mensagem  # Define o texto no label
-	error_label.add_color_override("font_color", Color.RED)  # Opcional: altera a cor do texto para vermelho
 
 func _send_code_to_game_engine(code: String):
 	if game_engine and game_engine.has_method("send_python_code"):

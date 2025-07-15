@@ -17,4 +17,4 @@ func _on_resume_btn_pressed():
 	visible = false
 
 func _on_quit_btn_pressed():
-	get_tree().quit()
+	get_tree().change_scene_to_file("res://scenes/main_title.tscn")

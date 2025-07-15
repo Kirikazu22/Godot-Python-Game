@@ -24,11 +24,12 @@ const lines : Array[String] = [
 @onready var commands = $HUD/Control/MarginContainer/HBoxContainer/commands
 
 func _ready():
+	Globals.current_lvl = self
 	commands.text = "COMANDOS DISPONÍVEIS:
-jogador.mover('direita')
-jogador.mover('esquerda')
-jogador.mover('baixo')
-jogador.mover('cima')"
+	jogador.mover('direita')
+	jogador.mover('esquerda')
+	jogador.mover('baixo')
+	jogador.mover('cima')"
 	color_rect.visible = true
 	animation_player.play("appear")
 	# "Cutscene" de abertura
@@ -89,7 +90,6 @@ func exibir_mensagem_erro(mensagem: String):
 	error_label.text= ""
 	# Define a mensagem como placeholder do campo de código
 	error_label.text = mensagem  # Define o texto no label
-	error_label.add_color_override("font_color", Color.RED)  # Opcional: altera a cor do texto para vermelho
 
 func _send_code_to_game_engine(code: String):
 	if game_engine and game_engine.has_method("send_python_code"):

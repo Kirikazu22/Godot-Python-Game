@@ -63,13 +63,13 @@ func _http_request_completed(result, response_code, headers, body):
 				
 				# Exibir mensagem de sucesso
 				if Globals.current_lvl:
-					Globals.current.lvl.exibir_mensagem_erro("Comandos executados com sucesso!")
+					Globals.current_lvl.exibir_mensagem_erro("Comandos executados com sucesso!")
 			else:
-				if Globals.current.lvl:
-					Globals.current.lvl.exibir_mensagem_erro("Erro: resposta inválida do servidor")
+				if Globals.current_lvl:
+					Globals.current_lvl.exibir_mensagem_erro("Erro: resposta inválida do servidor")
 		else:
-			if Globals.current.lvl:
-				Globals.current.lvl.exibir_mensagem_erro("Erro ao processar resposta do servidor.")
+			if Globals.current_lvl:
+				Globals.current_lvl.exibir_mensagem_erro("Erro ao processar resposta do servidor.")
 	
 	elif response_code == 400:
 		var json = JSON.new()
@@ -79,18 +79,18 @@ func _http_request_completed(result, response_code, headers, body):
 			var response = json.get_data()
 			if "error" in response:
 				
-				if Globals.current.lvl:
-					Globals.current.lvl.exibir_mensagem_erro(response["error"])  # Exibe o erro exato do servidor
+				if Globals.current_lvl:
+					Globals.current_lvl.exibir_mensagem_erro(response["error"])
 			else:
-				if Globals.current.lvl:
-					Globals.current.lvl.exibir_mensagem_erro("Erro 400: Resposta inválida do servidor.")
+				if Globals.current_lvl:
+					Globals.current_lvl.exibir_mensagem_erro("Erro 400: Resposta inválida do servidor.")
 		else:
-			if Globals.current.lvl:
-				Globals.current.lvl.exibir_mensagem_erro("Erro ao processar mensagem de erro do servidor.")
+			if Globals.current_lvl:
+				Globals.current_lvl.exibir_mensagem_erro("Erro ao processar mensagem de erro do servidor.")
 
 	else:
-		if Globals.current.lvl:
-			Globals.current.lvl.exibir_mensagem_erro("Erro ao comunicar com o servidor. Código: " + str(response_code))
+		if Globals.current_lvl:
+			Globals.current_lvl.exibir_mensagem_erro("Erro ao comunicar com o servidor. Código: " + str(response_code))
 
 # Função para executar o comando e mover o jogador
 func _execute_command(command):
@@ -159,17 +159,14 @@ func _execute_command(command):
 	
 	elif command == "ABRIR_PORTA":
 		emit_signal("trigger_animation")
-		await get_tree().create_timer(3.5).timeout
+		await get_tree().create_timer(2.0).timeout
 		player_instance.moverParaCima()
 		await get_tree().create_timer(0.5).timeout
 		player_instance.moverParaCima()
 		
 	elif command == "FALAR":
 		emit_signal("reveal_treasure")
-		player_instance.moverParaCima()
-		await get_tree().create_timer(0.5).timeout
-		player_instance.moverParaCima()
-		await get_tree().create_timer(0.5).timeout
+		await get_tree().create_timer(1.0).timeout
 		player_instance.moverParaCima()
 		await get_tree().create_timer(0.5).timeout
 		player_instance.moverParaCima()
