@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from process_python_code import process_python_code
+import os
 
 app = Flask(__name__, static_folder='dist')
 CORS(app)
@@ -57,4 +58,5 @@ def execute_code():
         return jsonify({"error": f"Erro interno no servidor: {str(e)}"}), 500
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=8000, threaded=True)
+    port = int(os.environ.get('PORT', 8000))
+    app.run(host='0.0.0.0', port=port, threaded=True)
